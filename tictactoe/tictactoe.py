@@ -66,25 +66,62 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    for row in board:
+        x=0
+        if(board[row][x]==board[row+1][x])&(board[row][x]==board[row+2][x]):
+            return board[row][x]
+    for col in board: 
+        y=0
+        if(board[y][col]==board[y][col+1])&(board[y][col]==board[y][col+2]):
+            return board[y][col]
+    if(board[0][0]==board[1][1])&(board[0][0]==board[2][2]):
+        return board[0][0]
+    if(board[0][2]==board[1][1])&(board[0][2]==board[2][0]):
+        return board[0][2]
+    return None
 
 
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    if winner(board)!=None:
+        return True
+    else: 
+        count=0
+        for row in board:
+            for cell in row:
+                if board[row][cell]==EMPTY:
+                    count+=1
+        if count==0:
+            return True
+        else: 
+            return False
 
 
 def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    if winner(board)==X:
+        return 1
+    elif winner(board)==O:
+        return -1
+    else:
+        return 0
 
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    play=player(board)
+    low=float('inf')
+    high=float('-inf')
+    opt=None
+    action=actions(board)
+    for item in action:
+        next=result(board,item)
+        while terminal(next)!=True:
+           steps=actions(next)
+       
