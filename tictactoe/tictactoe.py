@@ -116,12 +116,100 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     play=player(board)
-    low=float('inf')
-    high=float('-inf')
-    opt=None
     action=actions(board)
-    for item in action:
+    scores=set()
+    for item in actions:
+        min=float('inf')
+        max=float('-inf')
         next=result(board,item)
-        while terminal(next)!=True:
-           steps=actions(next)
-       
+        if terminal(next)==True:
+            score=utility(next)
+            if score>max:
+                max=score
+            if score<min:
+                min=score
+        else:
+            steps=actions(next)
+            for item in steps:
+                next=result(next,item)
+                if terminal(next)==True:
+                    score=utility(next)
+                if score>max:
+                    max=score
+                if score<min:
+                    min=score
+            else:
+                steps=actions(next)
+                for item in steps:
+                    next=result(next,item)
+                    if terminal(next)==True:
+                        score=utility(next)
+                    if score>max:
+                        max=score
+                    if score<min:
+                        min=score
+                    else:
+                        steps=actions(next)
+                        for item in steps:
+                            next=result(next,item)
+                            if terminal(next)==True:
+                                score=utility(next)
+                            if score>max:
+                                max=score
+                            if score<min:
+                                min=score
+                            else:
+                                steps=actions(next)
+                                for item in steps:
+                                    next=result(next,item)
+                                    if terminal(next)==True:
+                                        score=utility(next)
+                                    if score>max:
+                                        max=score
+                                    if score<min:
+                                        min=score
+                                    else:
+                                        steps=actions(next)
+                                        for item in steps:
+                                            next=result(next,item)
+                                            if terminal(next)==True:
+                                                score=utility(next)
+                                            if score>max:
+                                                max=score
+                                            if score<min:
+                                                min=score
+                                            else:
+                                                steps=actions(next)
+                                                for item in steps:
+                                                    next=result(next,item)
+                                                    if terminal(next)==True:
+                                                        score=utility(next)
+                                                    if score>max:
+                                                        max=score
+                                                    if score<min:
+                                                        min=score         
+                                                    else:
+                                                        steps=actions(next)
+                                                        for item in steps:
+                                                            next=result(next,item)
+                                                            if terminal(next)==True:
+                                                                score=utility(next)
+                                                            if score>max:
+                                                                max=score
+                                                            if score<min:
+                                                                min=score  
+                                                            else:
+                                                                steps=actions(next)
+                                                                for item in steps:
+                                                                    next=result(next,item)
+                                                                    if terminal(next)==True:
+                                                                        score=utility(next)
+                                                                    if score>max:
+                                                                        max=score
+                                                                    if score<min:
+                                                                        min=score                
+        if player==X:
+            scores.add(min)
+        elif player==Y:
+            scores.add(max)
+    
