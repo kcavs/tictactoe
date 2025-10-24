@@ -118,6 +118,7 @@ def minimax(board):
     play=player(board)
     action=actions(board)
     scores=set()
+    opt_action=None
     for item in actions:
         min=float('inf')
         max=float('-inf')
@@ -212,4 +213,15 @@ def minimax(board):
             scores.add(min)
         elif player==Y:
             scores.add(max)
-    
+    list_act=list(actions(board))
+    list_scores=list(scores)
+    opt=scores[1]
+    if player==X:
+        for item in scores:
+            if item>opt:
+                opt_action=list_act[list_scores.index(item)]
+    elif player==Y:
+        for item in scores:
+            if item>opt:
+                opt_action=list_act[list_scores.index(item)]
+    return opt_action
